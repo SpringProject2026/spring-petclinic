@@ -113,5 +113,22 @@ class PetValidatorTests {
 		}
 
 	}
+@Test
+void validateWithDuplicatePetName() {
+    Owner owner = new Owner();
+    owner.setFirstName("John");
+    owner.setLastName("Doe");
 
+    Pet existingPet = new Pet();
+    existingPet.setName("Buddy");
+    owner.addPet(existingPet);
+
+    Pet newPet = new Pet();
+    newPet.setName("Buddy");
+    owner.addPet(newPet);
+
+    petValidator.validate(newPet, errors);
+
+    assertTrue(errors.hasFieldErrors("name"));
+}
 }

@@ -18,6 +18,9 @@
         </div>
       </div>
       <input th:replace="~{fragments/inputField :: input ('Name', 'name', 'text')}" />
+      <div th:if="${#fields.hasErrors('name')}" class="alert alert-danger">
+    <span th:errors="*{name}">Name Error</span>
+</div>
       <input th:replace="~{fragments/inputField :: input ('Birth Date', 'birthDate', 'date')}" />
       <input th:replace="~{fragments/selectField :: select ('Type', 'type', ${types})}" />
     </div>

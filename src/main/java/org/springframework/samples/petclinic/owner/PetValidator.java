@@ -42,6 +42,15 @@ public class PetValidator implements Validator {
 			errors.rejectValue("name", REQUIRED, REQUIRED);
 		}
 
+		// duplicate name validation
+		if (StringUtils.hasText(name) && pet.getOwner() != null) {
+			for (Pet existingPet : pet.getOwner().getPets()) {
+				if (existingPet.getName().equalsIgnoreCase(name) && !existingPet.equals(pet)) {
+					errors.rejectValue("name", "duplicate", "Pet name already exists for this owner");
+				}
+			}
+		}
+
 		// type validation
 		if (pet.isNew() && pet.getType() == null) {
 			errors.rejectValue("type", REQUIRED, REQUIRED);
